@@ -1,2 +1,2 @@
-web: cd client-and-server/server/ruby && ruby server.rb
+web: cd client-and-server/server/ruby && bundle exec ruby server.rb
 
