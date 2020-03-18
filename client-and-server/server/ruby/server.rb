@@ -8,7 +8,7 @@ Stripe.api_key = ENV['STRIPE_SECRET_KEY']
 
 set :static, true
 set :public_folder, File.join(File.dirname(__FILE__), ENV['STATIC_DIR'])
-set :port, 4242
+set :port, (ENV['PORT'] || 4242).to_i
 
 get '/' do
   content_type 'text/html'
@@ -42,13 +42,13 @@ post '/create-checkout-session' do
   # [customer] - if you have an existing Stripe Customer ID
   # [payment_intent_data] - lets capture the payment later
   # [customer_email] - lets you prefill the email input in the form
-  # For full details see https:#stripe.com/docs/api/checkout/sessions/create
+  # For full details see https://stripe.com/docs/api/checkout/sessions/create
 
   # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
   session = Stripe::Checkout::Session.create(
     success_url: ENV['DOMAIN'] + '/success.html?session_id={CHECKOUT_SESSION_ID}',
     cancel_url: ENV['DOMAIN'] + '/canceled.html',
-    payment_method_types: ['card'],
+    payment_method_types: ['eps', 'p24', 'giropay'],
     line_items: [{
       name: 'Pasha photo',
       images: ["https://picsum.photos/300/300?random=4"],
