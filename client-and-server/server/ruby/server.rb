@@ -48,7 +48,8 @@ post '/create-checkout-session' do
   session = Stripe::Checkout::Session.create(
     success_url: ENV['DOMAIN'] + '/success.html?session_id={CHECKOUT_SESSION_ID}',
     cancel_url: ENV['DOMAIN'] + '/canceled.html',
-    payment_method_types: ['eps', 'p24', 'giropay', 'bacs_debit'],
+    # payment_method_types: ['eps', 'p24', 'giropay', 'bacs_debit'],
+    payment_method_types: ['bacs_debit'],
     line_items: [{
       name: 'Pasha photo',
       images: ["https://picsum.photos/300/300?random=4"],
