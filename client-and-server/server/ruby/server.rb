@@ -5,6 +5,7 @@ require 'dotenv'
 # Copy the .env.example in the root into a .env file in this folder
 Dotenv.load
 Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+Stripe.api_base = ENV['API_BASE'] unless ENV['API_BASE'].to_s.strip.empty?
 
 set :static, true
 set :public_folder, File.join(File.dirname(__FILE__), ENV['STATIC_DIR'])
